@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoubleDoubleIntegrate", "DoubleDoubleIntegrate\DoubleDoubleIntegrate.csproj", "{4A232A64-3F29-4492-97ED-E1741C146232}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleDoubleIntegrateTest", "DoubleDoubleIntegrateTest\DoubleDoubleIntegrateTest.csproj", "{F0E5AEE7-1AAA-44D1-89FE-EB10F20897EE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4A232A64-3F29-4492-97ED-E1741C146232} = {4A232A64-3F29-4492-97ED-E1741C146232}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A232A64-3F29-4492-97ED-E1741C146232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A232A64-3F29-4492-97ED-E1741C146232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A232A64-3F29-4492-97ED-E1741C146232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A232A64-3F29-4492-97ED-E1741C146232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0E5AEE7-1AAA-44D1-89FE-EB10F20897EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0E5AEE7-1AAA-44D1-89FE-EB10F20897EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0E5AEE7-1AAA-44D1-89FE-EB10F20897EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0E5AEE7-1AAA-44D1-89FE-EB10F20897EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AF37B1A-25FC-4BC9-A524-7405381FA332}
+	EndGlobalSection
+EndGlobal
