@@ -8,19 +8,19 @@ namespace DoubleDoubleIntegrateTest {
     public class PolyGammaSandbox {
         [TestMethod]
         public void PolyGammaIntegrate() {
-            int n = 3;
-            ddouble z = (ddouble)2 / 3;
+            int n = 32;
+            ddouble z = 32;
 
             for (int pts = 16; pts <= 64; pts++) {
                 Console.WriteLine(pts);
 
-                ddouble y = PolyGamma(n, z, pts, (n > 1) ? 4 : 8);
+                ddouble y = PolyGamma(n, z, pts, Math.Max(1, 8d / n));
 
                 Console.WriteLine(y);
             }
         }
 
-        public ddouble PolyGamma(int n, ddouble x, int pts, int scale) {
+        public ddouble PolyGamma(int n, ddouble x, int pts, ddouble scale) {
             if (n < 0) {
                 throw new ArgumentOutOfRangeException(nameof(n));
             }
