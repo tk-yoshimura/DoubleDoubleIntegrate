@@ -8,8 +8,8 @@ namespace DoubleDoubleIntegrateTest {
     public class PolyGammaSandbox {
         [TestMethod]
         public void PolyGammaIntegrate() {
-            int n = 32;
-            ddouble z = 64;
+            int n = 2;
+            ddouble z = 1.5;
 
             for (int pts = 16; pts <= 64; pts++) {
                 Console.WriteLine(pts);
@@ -70,7 +70,6 @@ namespace DoubleDoubleIntegrateTest {
         }
 
         public ddouble PolyGammaLimit(int n, ddouble x) {
-
             ddouble inv_x2 = 1 / (x * x), c = ddouble.Pow(x, -n);
             ddouble v = c * ddouble.Gamma(n) * (2 * x + n) / (2 * x);
             ddouble u = c * ddouble.Gamma(n + 2) / 2 * inv_x2;
