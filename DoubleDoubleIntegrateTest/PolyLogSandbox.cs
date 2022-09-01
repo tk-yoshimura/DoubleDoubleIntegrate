@@ -8,13 +8,13 @@ namespace DoubleDoubleIntegrateTest {
     public class PolyLogSandbox {
         [TestMethod]
         public void PolyLogIntegrate() {
-            int n = 3;
-            ddouble z = 2;
+            int n = 2;
+            ddouble z = 1024;
 
             for (int pts = 16; pts <= 64; pts++) {
                 Console.WriteLine(pts);
 
-                ddouble y = PolyLogIntegral(n, z, pts);
+                ddouble y = PolyLogIntegralR2(n, z, pts);
 
                 Console.WriteLine(y);
             }
@@ -28,7 +28,7 @@ namespace DoubleDoubleIntegrateTest {
                 throw new ArgumentOutOfRangeException(nameof(x));
             }
 
-            ddouble ir, it, h = PolylogIntegrandPeak(n, (double)x) * 6;
+            ddouble h0 = PolylogIntegrandPeak(n, (double)x), h1 = h0 * 3;
 
             ddouble polygamma_ir(ddouble t){
                 ddouble y = ddouble.Pow(t, n - 1) / (ddouble.Exp(t) / x + 1);
@@ -37,19 +37,80 @@ namespace DoubleDoubleIntegrateTest {
             }; 
 
             ddouble polygamma_it(ddouble u){
-                ddouble v = u + h;
+                ddouble v = u + h1;
                 ddouble y = ddouble.Pow(v, n - 1) / (1 / x + ddouble.Exp(-v));
 
                 return y;
             };
 
-            ir = GaussLegendreIntegral.Integrate(polygamma_ir, ddouble.Zero, h, pts);
-            it = ddouble.Exp(-h) * GaussLaguerreIntegral.Integrate(polygamma_it, pts, f_expscaled: true);
+            ddouble ir0 = GaussLegendreIntegral.Integrate(polygamma_ir, ddouble.Zero, h0, pts);
+            ddouble ir1 = GaussLegendreIntegral.Integrate(polygamma_ir, h0, h1, pts);
+            ddouble it = ddouble.Exp(-h1) * GaussLaguerreIntegral.Integrate(polygamma_it, pts, f_expscaled: true);
+
+            ddouble i = ir0 + ir1 + it;
+
+            Console.WriteLine(ir0);
+            Console.WriteLine(ir1);
+            Console.WriteLine(it);
+
+            Console.WriteLine(i);
+
+            return i;
+        }
+
+        public ddouble PolyLogIntegralR2(int n, ddouble x, int pts) {
+            if (n <= 1) {
+                throw new ArgumentOutOfRangeException(nameof(n));
+            }
+            if (x < 0.5) { 
+                throw new ArgumentOutOfRangeException(nameof(x));
+            }
+
+            ddouble h = PolylogIntegrandPeak(n, (double)x);
+
+            ddouble polygamma_ir(ddouble t){
+                ddouble y = ddouble.Pow(t, n - 1) / (ddouble.Exp(t) / x + 1);
+
+                return y;
+            }; 
+
+
+            int k;
+            ddouble ir = 0, ir0, ir1;
+            ddouble thr = 1.25 * ddouble.Exp(-h);
+
+            ir0 = GaussLegendreIntegral.Integrate(polygamma_ir, ddouble.Zero, h, pts);
+            ir += ir0;
+
+            Console.WriteLine($"0h: {ir0}");
+
+            for (k = 1; ; k++) { 
+                ir1 = GaussLegendreIntegral.Integrate(polygamma_ir, k * h, (k + 1) * h, pts);
+                ir += ir1;
+
+                Console.WriteLine($"{k}h: {ir1}");
+
+                if (!(ir1 / ir0 >= thr) || k >= 32) {
+                    break;
+                }
+
+                ir0 = ir1;
+            }
+
+            ddouble sh = (k + 1) * h;
+
+            ddouble polygamma_it(ddouble u){
+                ddouble v = u + sh;
+                ddouble y = ddouble.Pow(v, n - 1) / (1 / x + ddouble.Exp(-v));
+
+                return y;
+            };
+            
+            ddouble it = ddouble.Exp(-sh) * GaussLaguerreIntegral.Integrate(polygamma_it, pts, f_expscaled: true);
 
             ddouble i = ir + it;
 
-            Console.WriteLine(ir);
-            Console.WriteLine(it);
+            Console.WriteLine($"{k + 1}h+: {it}");
 
             Console.WriteLine(i);
 
