@@ -3,11 +3,11 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("DoubleDouble.Integrate")]
-[assembly: AssemblyDescription("double-double numerical integration implements")]
+[assembly: AssemblyDescription("Double-Double Numerical Integration Implements")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("DoubleDouble.Integrate")]
-[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2022")]
+[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2022-2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -15,4 +15,4 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("5208CE17-2403-4941-BC0B-A0FE44F80491")]
 
-[assembly: AssemblyVersion("1.1.0.*")]
+[assembly: AssemblyVersion("1.1.1.*")]
