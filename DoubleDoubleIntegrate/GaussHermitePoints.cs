@@ -6,7 +6,9 @@ namespace DoubleDoubleIntegrate {
     public static class GaussHermitePoints {
         public const int MinPoints = 4, MaxPoints = 64;
 
-        public static ReadOnlyDictionary<int, ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>> Table = new(new Dictionary<int, ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>>(){
+        public static ReadOnlyDictionary<int, ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>> Table { get; } =
+            new(new Dictionary<int, ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>>(){
+
             { 4, new ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>(new (ddouble x, ddouble w, ddouble wexp)[]{
                 ((+1, -1, 0x864F4E7FE4395D6FuL, 0xB5264FE6F47127FAuL), (+1, -1, 0xCE0ED98CA9CC97D3uL, 0x72ADA1A1C14B7112uL), (+1, 0, 0x87ACEA8A7A4BFDF8uL, 0x9548980FEDC0645AuL)),
                 ((+1, 0, 0xD3497C7E1F92FBFFuL, 0x4C91C528CDA95DA3uL), (+1, -4, 0xA6875807ED75EB4BuL, 0x79543B276C89586FuL), (+1, 0, 0x9EBFB837544606C2uL, 0xBE14A7F1A217910DuL)),

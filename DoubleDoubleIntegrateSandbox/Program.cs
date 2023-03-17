@@ -1,6 +1,5 @@
 ﻿using DoubleDouble;
 using DoubleDoubleIntegrate;
-using System;
 
 namespace DoubleDoubleIntegrateSandbox {
     internal class Program {
@@ -40,17 +39,17 @@ namespace DoubleDoubleIntegrateSandbox {
 
             {
                 System.Collections.ObjectModel.ReadOnlyCollection<(ddouble x, ddouble w)> points = GaussLegendrePoints.Table[36];
-            
+
                 foreach ((ddouble x, ddouble w) in points) {
                     Console.WriteLine($"({x:e20}, {w:e20}), ");
                 }
             }
-            
+
             Console.WriteLine("");
-            
+
             {
                 System.Collections.ObjectModel.ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)> points = GaussLaguerrePoints.Table[36];
-            
+
                 foreach ((ddouble x, ddouble w, _) in points) {
                     Console.WriteLine($"({x:e20}, {w:e20}), ");
                 }
@@ -68,7 +67,7 @@ namespace DoubleDoubleIntegrateSandbox {
                 return ddouble.Digamma(x);
             }
 
-            if (x < 0) { 
+            if (x < 0) {
                 throw new ArgumentOutOfRangeException(nameof(x));
             }
 
@@ -80,11 +79,11 @@ namespace DoubleDoubleIntegrateSandbox {
 
             ddouble ir, it;
 
-            ddouble polygamma_ir(ddouble t){
+            ddouble polygamma_ir(ddouble t) {
                 ddouble y = ddouble.Pow(t, n) * ddouble.Exp(-x * t) / (1 - ddouble.Exp(-t));
                 return y;
             };
-            ddouble polygamma_it(ddouble u){
+            ddouble polygamma_it(ddouble u) {
                 ddouble v = (u + scale * n) / x;
                 ddouble y = ddouble.Pow(v, n) / (1 - ddouble.Exp(-v));
                 return y;

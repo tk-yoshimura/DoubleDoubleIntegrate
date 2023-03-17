@@ -6,7 +6,7 @@ namespace DoubleDoubleIntegrate {
     public static class GaussLaguerrePoints {
         public const int MinPoints = 4, MaxPoints = 64;
 
-        public static ReadOnlyDictionary<int, ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>> Table =
+        public static ReadOnlyDictionary<int, ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>> Table { get; } =
             new(new Dictionary<int, ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>>(){
 
             { 4, new ReadOnlyCollection<(ddouble x, ddouble w, ddouble wexp)>(new (ddouble x, ddouble w, ddouble wexp)[]{
