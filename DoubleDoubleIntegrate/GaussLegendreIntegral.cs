@@ -8,7 +8,7 @@ namespace DoubleDoubleIntegrate {
             ddouble r = b - a;
 
             if (!ddouble.IsFinite(r)) {
-                throw new ArgumentOutOfRangeException($"{nameof(a)},{nameof(b)}");
+                throw new ArgumentException("Invalid integation interval.", $"{nameof(a)},{nameof(b)}");
             }
 
             if (n < GaussLegendrePoints.MinPoints || n > GaussLegendrePoints.MaxPoints) {
