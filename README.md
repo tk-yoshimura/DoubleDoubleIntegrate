@@ -2,7 +2,7 @@
  Double-Double Numerical Integration Implements 
 
 ## Requirement
-.NET 6.0
+.NET 7.0
 
 ## Install
 
