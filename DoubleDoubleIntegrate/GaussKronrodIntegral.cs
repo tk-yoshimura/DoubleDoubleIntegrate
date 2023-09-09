@@ -74,7 +74,7 @@ namespace DoubleDoubleIntegrate {
             }
 
             if (ddouble.IsInfinity(a) && ddouble.IsInfinity(b)) {
-                if (a.Sign == b.Sign) {
+                if (ddouble.Sign(a) == ddouble.Sign(b)) {
                     throw new ArgumentException("Invalid integation interval.", $"{nameof(a)},{nameof(b)}");
                 }
 
