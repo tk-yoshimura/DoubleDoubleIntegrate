@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("DoubleDouble.Integrate")]
-[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2022-2023")]
+[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2022-2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -14,4 +14,4 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("5208CE17-2403-4941-BC0B-A0FE44F80491")]
 
-[assembly: AssemblyVersion("1.3.1.*")]
+[assembly: AssemblyVersion("1.4.0.*")]
