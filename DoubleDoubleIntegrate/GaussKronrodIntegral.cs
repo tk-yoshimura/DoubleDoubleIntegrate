@@ -11,12 +11,16 @@ namespace DoubleDoubleIntegrate {
         G15K31 = 15,
         G16K33 = 16,
         G31K63 = 31,
-        G32K65 = 32
+        G32K65 = 32,
+        G63K127 = 63,
+        G64K129 = 64,
+        G127K255 = 127,
+        G128K257 = 128,
     }
 
     public static class GaussKronrodIntegral {
 
-        public static (ddouble value, ddouble error) Integrate(Func<ddouble, ddouble> f, ddouble a, ddouble b, GaussKronrodOrder order = GaussKronrodOrder.G7K15) {
+        public static (ddouble value, ddouble error) Integrate(Func<ddouble, ddouble> f, ddouble a, ddouble b, GaussKronrodOrder order = GaussKronrodOrder.G31K63) {
             ReadOnlyCollection<(ddouble x, ddouble wg, ddouble wk)> ps = GaussKronrodPoints.Table[order];
 
             ddouble sg = ddouble.Zero, sk = ddouble.Zero;
@@ -47,30 +51,31 @@ namespace DoubleDoubleIntegrate {
             return (sk, error);
         }
 
-        private static (ddouble value, ddouble error) AdaptiveIntegrateFiniteInterval(Func<ddouble, ddouble> f, ddouble a, ddouble b, ddouble eps, GaussKronrodOrder order = GaussKronrodOrder.G7K15, int depth = 8) {
+        private static (ddouble value, ddouble error, long eval_points) AdaptiveIntegrateFiniteInterval(Func<ddouble, ddouble> f, ddouble a, ddouble b, ddouble eps, GaussKronrodOrder order, int depth) {
             (ddouble value, ddouble error) = Integrate(f, a, b, order);
 
-            if (!(error > eps) || depth <= 0) {
-                return (value, error);
+            long eval_points = 1 + 2 * (int)order;
+            if (!(error > eps) || depth == 0) {
+                return (value, error, eval_points);
             }
 
             ddouble c = (a + b) / 2, eps_half = eps / 2;
 
-            (ddouble value1, ddouble error1) = AdaptiveIntegrateFiniteInterval(f, a, c, eps_half, order, depth - 1);
-            (ddouble value2, ddouble error2) = AdaptiveIntegrateFiniteInterval(f, c, b, eps_half, order, depth - 1);
+            (ddouble value1, ddouble error1, long eval_points1) = AdaptiveIntegrateFiniteInterval(f, a, c, eps_half, order, depth > 0 ? depth - 1 : -1);
+            (ddouble value2, ddouble error2, long eval_points2) = AdaptiveIntegrateFiniteInterval(f, c, b, eps_half, order, depth > 0 ? depth - 1 : -1);
 
-            return (value1 + value2, error1 + error2);
+            return (value1 + value2, error1 + error2, eval_points + eval_points1 + eval_points2);
         }
 
-        private static (ddouble value, ddouble error) AdaptiveIntegrateInfiniteInterval(Func<ddouble, ddouble> f, ddouble a, ddouble b, ddouble eps, GaussKronrodOrder order = GaussKronrodOrder.G7K15, int depth = 8) {
+        private static (ddouble value, ddouble error, long eval_points) AdaptiveIntegrateInfiniteInterval(Func<ddouble, ddouble> f, ddouble a, ddouble b, ddouble eps, GaussKronrodOrder order, int depth) {
             if (ddouble.IsNaN(a) || ddouble.IsNaN(b)) {
                 throw new ArgumentException("Invalid integation interval.", $"{nameof(a)},{nameof(b)}");
             }
 
             if (a > b) {
-                (ddouble value, ddouble error) = AdaptiveIntegrateInfiniteInterval(f, b, a, eps, order, depth);
+                (ddouble value, ddouble error, long eval_points) = AdaptiveIntegrateInfiniteInterval(f, b, a, eps, order, depth);
 
-                return (-value, error);
+                return (-value, error, eval_points);
             }
 
             if (ddouble.IsInfinity(a) && ddouble.IsInfinity(b)) {
@@ -152,12 +157,16 @@ namespace DoubleDoubleIntegrate {
             throw new ArgumentException("Invalid integation interval.", $"{nameof(a)},{nameof(b)}");
         }
 
-        public static (ddouble value, ddouble error) AdaptiveIntegrate(Func<ddouble, ddouble> f, ddouble a, ddouble b, ddouble eps, GaussKronrodOrder order = GaussKronrodOrder.G7K15, int depth = 8) {
+        public static (ddouble value, ddouble error, long eval_points) AdaptiveIntegrate(Func<ddouble, ddouble> f, ddouble a, ddouble b, ddouble eps, GaussKronrodOrder order = GaussKronrodOrder.G31K63, int maxdepth = -1) {
+            if (maxdepth < -1) {
+                throw new ArgumentOutOfRangeException(nameof(maxdepth), "Invalid param. maxdepth=-1: infinite, maxdepth>=0: finite");
+            }
+
             if (ddouble.IsFinite(a) && ddouble.IsFinite(b)) {
-                return AdaptiveIntegrateFiniteInterval(f, a, b, eps, order, depth);
+                return AdaptiveIntegrateFiniteInterval(f, a, b, eps, order, maxdepth);
             }
             else {
-                return AdaptiveIntegrateInfiniteInterval(f, a, b, eps, order, depth);
+                return AdaptiveIntegrateInfiniteInterval(f, a, b, eps, order, maxdepth);
             }
         }
     }
