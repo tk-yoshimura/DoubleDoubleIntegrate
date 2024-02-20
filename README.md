@@ -25,7 +25,7 @@ GaussKronrodIntegral.AdaptiveIntegrate(
     1, 4, 
     eps: 1e-25, 
     order: GaussKronrodOrder.G7K15, 
-    depth: 10
+    maxdepth: 10
 );
 
 // Gauss-Kronrod Adaptive Integrate 32-65: exp(-t^2) t=-inf to +inf
@@ -34,7 +34,7 @@ GaussKronrodIntegral.AdaptiveIntegrate(
     ddouble.NegativeInfinity, ddouble.PositiveInfinity, 
     eps: 1e-25, 
     order: GaussKronrodOrder.G32K65, 
-    depth: 10
+    maxdepth: 10
 );
 
 // Romberg Integrate: sqrt(1 - t^2) t=0 to sqrt(2)/2
