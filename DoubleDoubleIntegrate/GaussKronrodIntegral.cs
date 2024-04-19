@@ -292,6 +292,9 @@ namespace DoubleDoubleIntegrate {
             if (discontinue_eval_points < -1) {
                 throw new ArgumentOutOfRangeException(nameof(discontinue_eval_points), "Invalid param. discontinue_eval_points=-1: infinite, discontinue_eval_points>=0: finite");
             }
+            if (!(eps >= 0d)) { 
+                throw new ArgumentOutOfRangeException(nameof(eps), "Invalid param. eps must be nonnegative value");
+            }
 
             if (ddouble.IsFinite(a) && ddouble.IsFinite(b)) {
                 return AdaptiveIntegrateFiniteInterval(f, a, b, eps, order, maxdepth, discontinue_eval_points);
