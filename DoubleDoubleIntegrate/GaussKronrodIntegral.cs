@@ -1,6 +1,5 @@
 ﻿using DoubleDouble;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -292,7 +291,7 @@ namespace DoubleDoubleIntegrate {
             if (discontinue_eval_points < -1) {
                 throw new ArgumentOutOfRangeException(nameof(discontinue_eval_points), "Invalid param. discontinue_eval_points=-1: infinite, discontinue_eval_points>=0: finite");
             }
-            if (!(eps >= 0d)) { 
+            if (!(eps >= 0d)) {
                 throw new ArgumentOutOfRangeException(nameof(eps), "Invalid param. eps must be nonnegative value");
             }
 
