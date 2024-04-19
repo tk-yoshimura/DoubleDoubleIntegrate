@@ -74,7 +74,7 @@ namespace DoubleDoubleIntegrate {
                     continue;
                 }
 
-                ddouble c = (a + b) / 2, eps_half = eps / 2;
+                ddouble c = ddouble.Ldexp(a + b, -1), eps_half = ddouble.Ldexp(eps, -1);
                 stack.Push((a, c, eps_half));
                 stack.Push((c, b, eps_half));
             }
@@ -105,7 +105,7 @@ namespace DoubleDoubleIntegrate {
                     continue;
                 }
 
-                ddouble c = (a + b) / 2, eps_half = eps / 2;
+                ddouble c = ddouble.Ldexp(a + b, -1), eps_half = ddouble.Ldexp(eps, -1);
                 depth -= 1;
                 stack.Push((a, c, eps_half, depth));
                 stack.Push((c, b, eps_half, depth));
@@ -137,7 +137,7 @@ namespace DoubleDoubleIntegrate {
                     continue;
                 }
 
-                ddouble c = (a + b) / 2, eps_half = eps / 2;
+                ddouble c = ddouble.Ldexp(a + b, -1), eps_half = ddouble.Ldexp(eps, -1);
                 long priority = double.ILogB((double)error);
                 queue.Enqueue((a, c, eps_half), -priority);
                 queue.Enqueue((c, b, eps_half), -priority);
@@ -170,7 +170,7 @@ namespace DoubleDoubleIntegrate {
                     continue;
                 }
 
-                ddouble c = (a + b) / 2, eps_half = eps / 2;
+                ddouble c = ddouble.Ldexp(a + b, -1), eps_half = ddouble.Ldexp(eps, -1);
                 long priority = double.ILogB((double)error);
                 depth -= 1;
                 queue.Enqueue((a, c, eps_half, depth), -priority);
