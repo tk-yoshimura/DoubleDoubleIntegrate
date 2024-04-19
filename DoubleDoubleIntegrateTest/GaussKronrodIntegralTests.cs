@@ -112,5 +112,64 @@ namespace DoubleDoubleIntegrateTest {
 
             Assert.AreEqual(0d, (double)(expected - GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(-x * x), ddouble.PositiveInfinity, ddouble.NegativeInfinity, 1e-25, GaussKronrodOrder.G32K65, maxdepth: 10).value), 1e-25);
         }
+
+        [TestMethod]
+        public void LimitedEvalIntegrateExpTest() {
+            (ddouble y, ddouble err, long eval_points) = GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(ddouble.Sin(16 * x)), 0, 4, 1e-25, discontinue_eval_points: 1024);
+
+            Console.WriteLine(y);
+            Console.WriteLine(err);
+            Console.WriteLine(eval_points);
+
+            Assert.IsTrue(ddouble.Abs(y - "5.09923585008566829954993402287") < 1e-29);
+            Assert.IsTrue(err < 1e-25);
+        }
+
+        [TestMethod]
+        public void LimitedDepthIntegrateExpTest() {
+            (ddouble y, ddouble err, long eval_points) = GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(ddouble.Sin(16 * x)), 0, 4, 1e-25, maxdepth: 10);
+
+            Console.WriteLine(y);
+            Console.WriteLine(err);
+            Console.WriteLine(eval_points);
+
+            Assert.IsTrue(ddouble.Abs(y - "5.09923585008566829954993402287") < 1e-29);
+            Assert.IsTrue(err < 1e-25);
+        }
+
+        [TestMethod]
+        public void LimitedEvalAndDepthIntegrateExpTest() {
+            (ddouble y, ddouble err, long eval_points) = GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(ddouble.Sin(16 * x)), 0, 4, 1e-25, maxdepth: 10, discontinue_eval_points: 1024);
+
+            Console.WriteLine(y);
+            Console.WriteLine(err);
+            Console.WriteLine(eval_points);
+
+            Assert.IsTrue(ddouble.Abs(y - "5.09923585008566829954993402287") < 1e-29);
+            Assert.IsTrue(err < 1e-25);
+        }
+
+        [TestMethod]
+        public void UnlimitedIntegrateExpTest() {
+            (ddouble y, ddouble err, long eval_points) = GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(ddouble.Sin(16 * x)), 0, 4, 1e-25);
+
+            Console.WriteLine(y);
+            Console.WriteLine(err);
+            Console.WriteLine(eval_points);
+
+            Assert.IsTrue(ddouble.Abs(y - "5.09923585008566829954993402287") < 1e-29);
+            Assert.IsTrue(err < 1e-25);
+        }
+
+        [TestMethod]
+        public void LimitedEvalIntegrateExpIncrementTest() {
+            for (int discontinue_eval_points = 16; discontinue_eval_points <= 1024; discontinue_eval_points *= 2) {
+                (ddouble y, ddouble err, long eval_points) = GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(ddouble.Sin(16 * x)), 0, 4, 1e-25, discontinue_eval_points: discontinue_eval_points);
+
+                Console.WriteLine(y);
+                Console.WriteLine(err);
+                Console.WriteLine(eval_points);
+            }
+        }
     }
 }
