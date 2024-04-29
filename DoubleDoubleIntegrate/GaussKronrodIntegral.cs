@@ -215,12 +215,12 @@ namespace DoubleDoubleIntegrate {
                         return ddouble.Zero;
                     }
 
-                    ddouble u = (1 - t) / t;
+                    ddouble u = (1d - t) / t;
 
                     return (f(u) + f(-u)) / (t * t);
                 }
 
-                return AdaptiveIntegrateFiniteInterval(g, 0, 1, eps, order, depth, discontinue_eval_points);
+                return AdaptiveIntegrateFiniteInterval(g, 0d, 1d, eps, order, depth, discontinue_eval_points);
             }
 
             if (ddouble.IsFinite(a) && ddouble.IsInfinity(b)) {
@@ -230,12 +230,12 @@ namespace DoubleDoubleIntegrate {
                             return ddouble.Zero;
                         }
 
-                        ddouble u = (1 - t) / t;
+                        ddouble u = (1d - t) / t;
 
                         return f(u) / (t * t);
                     }
 
-                    return AdaptiveIntegrateFiniteInterval(g, 0, 1, eps, order, depth, discontinue_eval_points);
+                    return AdaptiveIntegrateFiniteInterval(g, 0d, 1d, eps, order, depth, discontinue_eval_points);
                 }
                 else {
                     ddouble g(ddouble t) {
@@ -243,12 +243,12 @@ namespace DoubleDoubleIntegrate {
                             return ddouble.Zero;
                         }
 
-                        ddouble u = (1 - t) / t;
+                        ddouble u = (1d - t) / t;
 
                         return f(a + u) / (t * t);
                     }
 
-                    return AdaptiveIntegrateFiniteInterval(g, 0, 1, eps, order, depth, discontinue_eval_points);
+                    return AdaptiveIntegrateFiniteInterval(g, 0d, 1d, eps, order, depth, discontinue_eval_points);
                 }
             }
 
@@ -259,12 +259,12 @@ namespace DoubleDoubleIntegrate {
                             return ddouble.Zero;
                         }
 
-                        ddouble u = (t - 1) / t;
+                        ddouble u = (t - 1d) / t;
 
                         return f(u) / (t * t);
                     }
 
-                    return AdaptiveIntegrateFiniteInterval(g, 0, 1, eps, order, depth, discontinue_eval_points);
+                    return AdaptiveIntegrateFiniteInterval(g, 0d, 1d, eps, order, depth, discontinue_eval_points);
                 }
                 else {
                     ddouble g(ddouble t) {
@@ -272,12 +272,12 @@ namespace DoubleDoubleIntegrate {
                             return ddouble.Zero;
                         }
 
-                        ddouble u = (t - 1) / t;
+                        ddouble u = (t - 1d) / t;
 
                         return f(b + u) / (t * t);
                     }
 
-                    return AdaptiveIntegrateFiniteInterval(g, 0, 1, eps, order, depth, discontinue_eval_points);
+                    return AdaptiveIntegrateFiniteInterval(g, 0d, 1d, eps, order, depth, discontinue_eval_points);
                 }
             }
 
