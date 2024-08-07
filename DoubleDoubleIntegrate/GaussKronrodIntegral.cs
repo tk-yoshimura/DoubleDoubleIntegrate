@@ -182,7 +182,7 @@ namespace DoubleDoubleIntegrate {
 
         private static (ddouble value, ddouble error, long eval_points) AdaptiveIntegrateFiniteInterval(Func<ddouble, ddouble> f, ddouble a, ddouble b, ddouble eps, GaussKronrodOrder order, int maxdepth, long discontinue_eval_points) {
             if (ddouble.IsZero(eps)) {
-                eps = ddouble.Ldexp(Integrate(f, a, b, order).value, -98);
+                eps = ddouble.Ldexp(ddouble.Abs(Integrate(f, a, b, order).value), -98);
                 eps = ddouble.Max(eps, 2.2e-308);
             }
 
