@@ -114,6 +114,13 @@ namespace DoubleDoubleIntegrateTest {
         }
 
         [TestMethod]
+        public void AdaptiveIntegrateInfiniteExpTest11() {
+            ddouble expected = -ddouble.Sqrt(ddouble.PI);
+
+            Assert.AreEqual(0d, (double)(expected - GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(-x * x), ddouble.PositiveInfinity, ddouble.NegativeInfinity, eps: 0, order: GaussKronrodOrder.G32K65, maxdepth: 10).value), 1e-30);
+        }
+
+        [TestMethod]
         public void LimitedEvalIntegrateExpTest() {
             (ddouble y, ddouble err, long eval_points) = GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(ddouble.Sin(16 * x)), 0, 4, 1e-25, discontinue_eval_points: 1024);
 
