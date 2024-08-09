@@ -33,10 +33,9 @@ namespace DoubleDoubleIntegrate {
             }
 
             for (int i = 0; i < ps.Count; i++) {
-                ddouble x = ps[i].x;
-                ddouble x_shifted = x * r + a;
+                ddouble x = ps[i].x * r + a;
 
-                ddouble y = f(x_shifted);
+                ddouble y = f(x);
 
                 sk += ps[i].wk * y;
 
@@ -182,8 +181,14 @@ namespace DoubleDoubleIntegrate {
 
         private static (ddouble value, ddouble error, long eval_points) AdaptiveIntegrateFiniteInterval(Func<ddouble, ddouble> f, ddouble a, ddouble b, ddouble eps, GaussKronrodOrder order, int maxdepth, long discontinue_eval_points) {
             if (ddouble.IsZero(eps)) {
-                eps = ddouble.Ldexp(ddouble.Abs(Integrate(f, a, b, order).value), -98);
+                (ddouble value, ddouble error) = Integrate(f, a, b, order);
+                eps = ddouble.Ldexp(ddouble.Abs(value), -98);
                 eps = ddouble.Max(eps, 2.2e-308);
+
+                if (error < eps) {
+                    long eval_points = 1 + 2 * (int)order;
+                    return (value, error, eval_points);
+                }
             }
 
             if (maxdepth >= 0 && discontinue_eval_points >= 0) {
