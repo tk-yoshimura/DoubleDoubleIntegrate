@@ -1,5 +1,5 @@
 # DoubleDoubleIntegrate
- Double-Double Numerical Integration Implements 
+ Double-Double Numerical Integration Implements
 
 ## Requirement
 .NET 8.0  
