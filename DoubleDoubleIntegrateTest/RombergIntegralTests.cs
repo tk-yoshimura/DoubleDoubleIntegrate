@@ -18,7 +18,7 @@ namespace DoubleDoubleIntegrateTest {
 
             {
                 ddouble v = RombergIntegral.Integrate(f, 0, ddouble.Sqrt(2) / 2, 20);
-                Assert.AreEqual(0, (double)((ddouble.PI + 2) / 8 - v), 1e-20);
+                Assert.AreEqual(0, (double)((ddouble.Pi + 2) / 8 - v), 1e-20);
             }
         }
     }

@@ -9,12 +9,12 @@ namespace DoubleDoubleIntegrateTest {
         [TestMethod]
         public void IntegrateSinTest() {
             for (int n = 4; n <= 64; n++) {
-                ddouble y = GaussLegendreIntegral.Integrate(ddouble.Sin, ddouble.Zero, ddouble.PI, n);
+                ddouble y = GaussLegendreIntegral.Integrate(ddouble.Sin, ddouble.Zero, ddouble.Pi, n);
 
                 Console.WriteLine($"{n}\t {y}");
             }
 
-            Assert.AreEqual(0d, (double)(2 - GaussLegendreIntegral.Integrate(ddouble.Sin, ddouble.Zero, ddouble.PI, 32)), 1e-30);
+            Assert.AreEqual(0d, (double)(2 - GaussLegendreIntegral.Integrate(ddouble.Sin, ddouble.Zero, ddouble.Pi, 32)), 1e-30);
         }
 
         [TestMethod]

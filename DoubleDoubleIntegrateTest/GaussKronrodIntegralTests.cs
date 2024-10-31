@@ -9,12 +9,12 @@ namespace DoubleDoubleIntegrateTest {
         [TestMethod]
         public void IntegrateSinTest() {
             foreach (GaussKronrodOrder order in Enum.GetValues<GaussKronrodOrder>()) {
-                (ddouble y, ddouble err) = GaussKronrodIntegral.Integrate(ddouble.Sin, ddouble.Zero, ddouble.PI, order);
+                (ddouble y, ddouble err) = GaussKronrodIntegral.Integrate(ddouble.Sin, ddouble.Zero, ddouble.Pi, order);
 
                 Console.WriteLine($"{order}\t {y}\t {err}");
             }
 
-            Assert.AreEqual(0d, (double)(2 - GaussKronrodIntegral.Integrate(ddouble.Sin, ddouble.Zero, ddouble.PI, GaussKronrodOrder.G32K65).value), 1e-30);
+            Assert.AreEqual(0d, (double)(2 - GaussKronrodIntegral.Integrate(ddouble.Sin, ddouble.Zero, ddouble.Pi, GaussKronrodOrder.G32K65).value), 1e-30);
         }
 
         [TestMethod]
@@ -101,21 +101,21 @@ namespace DoubleDoubleIntegrateTest {
 
         [TestMethod]
         public void AdaptiveIntegrateInfiniteExpTest9() {
-            ddouble expected = ddouble.Sqrt(ddouble.PI);
+            ddouble expected = ddouble.Sqrt(ddouble.Pi);
 
             Assert.AreEqual(0d, (double)(expected - GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(-x * x), ddouble.NegativeInfinity, ddouble.PositiveInfinity, 1e-25, GaussKronrodOrder.G32K65, maxdepth: 10).value), 1e-25);
         }
 
         [TestMethod]
         public void AdaptiveIntegrateInfiniteExpTest10() {
-            ddouble expected = -ddouble.Sqrt(ddouble.PI);
+            ddouble expected = -ddouble.Sqrt(ddouble.Pi);
 
             Assert.AreEqual(0d, (double)(expected - GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(-x * x), ddouble.PositiveInfinity, ddouble.NegativeInfinity, 1e-25, GaussKronrodOrder.G32K65, maxdepth: 10).value), 1e-25);
         }
 
         [TestMethod]
         public void AdaptiveIntegrateInfiniteExpTest11() {
-            ddouble expected = -ddouble.Sqrt(ddouble.PI);
+            ddouble expected = -ddouble.Sqrt(ddouble.Pi);
 
             Assert.AreEqual(0d, (double)(expected - GaussKronrodIntegral.AdaptiveIntegrate(x => ddouble.Exp(-x * x), ddouble.PositiveInfinity, ddouble.NegativeInfinity, eps: 0, order: GaussKronrodOrder.G32K65, maxdepth: 10).value), 1e-30);
         }

@@ -15,7 +15,7 @@
 // Gauss-Legendre Integrate 32 Points: sin(t) t=0 to pi
 GaussLegendreIntegral.Integrate(
     ddouble.Sin, 
-    ddouble.Zero, ddouble.PI, 
+    ddouble.Zero, ddouble.Pi, 
     n: 32
 );
 
