@@ -4,7 +4,7 @@ using DoubleDoubleIntegrate;
 namespace DoubleDoubleIntegrateSandbox {
     internal class Program {
         static void Main() {
-            //PolyGammaNearZero(1, 1d / 3, 20, Math.Max(1, 8d / 1));
+            //PolyGammaNearZero(1, 1d / 3, 20, double.Max(1, 8d / 1));
 
             //{
             //    ddouble z = 32;
@@ -16,7 +16,7 @@ namespace DoubleDoubleIntegrateSandbox {
             //        Console.WriteLine($"{y_limit:e16}");
             //
             //        for (int pts = 16; pts <= 24; pts++) {
-            //            ddouble y = PolyGammaNearZero(n, z, pts, Math.Max(1, 8d / n));
+            //            ddouble y = PolyGammaNearZero(n, z, pts, double.Max(1, 8d / n));
             //
             //            Console.WriteLine($"pts={pts:D2}, {y:e16}");
             //        }
@@ -30,7 +30,7 @@ namespace DoubleDoubleIntegrateSandbox {
                     Console.WriteLine($"n={n}");
 
                     for (int pts = 16; pts <= 24; pts++) {
-                        ddouble y = PolyGammaNearZero(n, z, pts, Math.Max(1, 8d / n));
+                        ddouble y = PolyGammaNearZero(n, z, pts, double.Max(1, 8d / n));
 
                         Console.WriteLine($"pts={pts:D2}, {y:e20}");
                     }
